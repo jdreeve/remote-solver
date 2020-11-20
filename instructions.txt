@@ -1,0 +1,16 @@
+Instructions:
+
+To run a remote solver server, simply run the remote-solver with no command line arguments:
+
+./remote-solver
+
+Calling the remote-solver with one command line argument will search local cache for a corresponding Results pickle file, then query the remote solver server at the address specified in the .server-config file.
+
+Configuration information for the remote solver can be found in the file .server-config, including:
+	the address of the remote server to query
+	the path to the local cache
+	the port the server will listen on
+	a security token (optional)
+	a cache-only flag
+
+	If any value is entered for the cache-only flag, the server will only return files currently existing in the cache. No new simulations will be run.
