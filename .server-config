@@ -1,0 +1,6 @@
+server address: 127.0.0.1
+server port: 8787
+cache path: ./cache
+listen port: 8787
+security token: password
+cache-only flag: 1
