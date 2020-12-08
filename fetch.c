@@ -17,12 +17,10 @@ void fetch_from_server(char* model_md5, config_data* config){
 	node* node;
 	int server_index = -1;
 
-	/*
 	if((node = cache_search(config->cache, model_md5)) != NULL){//result already in local cache
 		printf("Results for %s found in local cache.\n", model_md5);
 		return;
 	}
-	*/
 
 	config_and_md5* config_and_md5 = config_and_md5_create();
 	config_and_md5->config=config;
