@@ -5,7 +5,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 #include <stdbool.h>
-#include "csapp.h"
+#include "utils.h"
 #include <semaphore.h>
 
 #define MAX_CACHE_SIZE 1049000

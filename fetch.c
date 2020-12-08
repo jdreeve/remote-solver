@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <pthread.h>
-#include "csapp.h"
+#include "utils.h"
 #include "fetch.h"
 #include "config.h"
 #include "cache.h"
@@ -14,7 +14,7 @@ void sigpipe_handler(int sig){
 }
 
 void fetch_from_server(char* model_md5, config_data* config){
-	node* node;
+	//node* node;
 	int server_index = -1;
 
 	/*
@@ -83,7 +83,7 @@ void* cache_query(void* configuration_and_md5){
 	}
 	else{
 		ret = -1;
-		pthread_exit(ret);
+		pthread_exit((void*)&ret);
 	}
 
 	read_message(&rio_remote, buf, MAXLINE);

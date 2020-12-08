@@ -3,7 +3,7 @@
 
 #include <pthread.h>
 #include "fetch.h"
-#include "csapp.h"
+#include "utils.h"
 #include "cache.h"
 #include "config.h"
 typedef struct {
