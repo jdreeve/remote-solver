@@ -93,7 +93,7 @@ void* cache_query(void* configuration_and_md5){
 		ret = 1;
 	}
 	printf("Thread closing. tid = %u\n", this_tid);
-	Pthread_exit(ret);
+	Pthread_exit((void*) &ret);
 
 	return NULL;
 }
@@ -233,7 +233,7 @@ void write_file(char* cache_path, char* model_md5, char* payload, size_t payload
 
 void get_data_from_file(char* cache_path, char* payload, char* model_md5, int isModel){
 	FILE *fp;
-	char file_path[400];
+	//char file_path[400];
 	char full_path[400];
 	strcpy(full_path, cache_path);
 	strcat(full_path, "/");

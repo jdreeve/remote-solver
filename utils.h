@@ -43,6 +43,7 @@ void Sem_init(sem_t *sem, int pshared, unsigned int value);
 //pthreads
 void Pthread_create(pthread_t *tidp, pthread_attr_t *attrp, void * (*routine)(void *), void *argp);
 void Pthread_join(pthread_t tid, void **thread_return);
+void Pthread_detach(pthread_t tid);
 pthread_t Pthread_self(void);
 void Pthread_exit(void *retval);
 
@@ -55,5 +56,15 @@ int Open_clientfd(char *hostname, char *port);
 int open_clientfd(char *hostname, char *port);
 int Open_listenfd(char *port);
 int open_listenfd(char *port);
+int Accept(int s, struct sockaddr *addr, socklen_t *addrlen);
+
+//io
+void Rio_writen(int fd, void *usrbuf, size_t n);
+ssize_t rio_writen(int fd, void *usrbuf, size_t n);
+ssize_t Rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen);
+ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen);
+void Rio_readinitb(rio_t *rp, int fd);
+void rio_readinitb(rio_t *rp, int fd);
+void Close(int fd);
 
 #endif

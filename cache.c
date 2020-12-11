@@ -20,7 +20,7 @@ void cache_populate(cache* cache, char* cache_path){
 		while((dir = readdir(d)) != NULL){
 			//create file path
 			strcpy(file_path, cache_path);
-			strncat(file_path, "/", strlen("/"));
+			strcat(file_path, "/");
 			strncat(file_path, dir->d_name, 200);
 			if(DEBUG){
 				printf("File path created:%s\n", file_path);
