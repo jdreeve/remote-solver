@@ -100,12 +100,16 @@ void serve(server_resources* server_resources){
 			printf("Downloading model pickle from client\n");
 			size_t payload_size;
 			size_t response_bytes = 0;
+			printf("TRES\n");
 			read_message(&rio_client, buf, MAXLINE);
+			printf("QUATORZ\n");
 			payload_size = atoi(buf);
 			printf("Payload size set to %ld\n", payload_size);
 			strcpy(payload, "");
 			while((response_bytes < payload_size)){
+				printf("UNO\n");
 				read_message(&rio_client, buf, MAXLINE);
+				printf("DOS\n");
 				size_t bufsize = strlen(buf);
 				response_bytes+=bufsize;
 				if(response_bytes<MAX_OBJECT_SIZE){

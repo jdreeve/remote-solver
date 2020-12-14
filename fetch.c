@@ -195,7 +195,10 @@ void request(config_data* config, int server_index, char* model_md5){
 	printf("Payload size set to %ld\n", payload_size);
 	strcpy(payload, "");
 	while((response_bytes < payload_size)){
+		printf("UNO\n");
+		printf("%s\n", buf);
 		read_message(&rio_remote, buf, MAXLINE);
+		printf("DOS\n");
 		size_t bufsize = strlen(buf);
 		response_bytes += bufsize;
 		if(response_bytes < MAX_OBJECT_SIZE){
