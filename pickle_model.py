@@ -41,5 +41,5 @@ hash = hashlib.md5(p)
 modelMD5 = hash.hexdigest()
 print(modelMD5)
 pickle.dump(model,open( f"./{modelMD5}-model.pkl", "wb" ))
-subprocess.run(["../remote-solver", f"{modelMD5}"])
+subprocess.run(["./remote-solver", f"{modelMD5}"])
 
