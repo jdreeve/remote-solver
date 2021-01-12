@@ -9,7 +9,8 @@ class Dimerization(gillespy2.Model):
     def __init__(self, parameter_values=None):
         # First call the gillespy2.Model initializer.
         super().__init__(self)
-
+        #give it a name!
+        self.name = "test0"
         # Define parameters for the rates of creation and dissociation.
         k_c = gillespy2.Parameter(name='k_c', expression=0.005)
         k_d = gillespy2.Parameter(name='k_d', expression=0.08)
@@ -34,10 +35,11 @@ class Dimerization(gillespy2.Model):
         self.timespan(numpy.linspace(0, 100, 101))
 
 model = Dimerization()
-p = pickle.dumps(model)
+p = pickle.dumps(str(model).encode())
 hash = hashlib.md5(p)
 
-modelMD5 = hash.digest()
+modelMD5 = hash.hexdigest()
 print(modelMD5)
-#pickle.dump(model,open( f"./{modelMD5}.pkl", "wb" ))
-#subprocess.run(["../remote-solver", f"{modelMD5}"])
+pickle.dump(model,open( f"./{modelMD5}-model.pkl", "wb" ))
+subprocess.run(["../remote-solver", f"{modelMD5}"])
+
