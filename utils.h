@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <sys/wait.h>
 
 #define RIO_BUFSIZE 8192
 typedef struct {

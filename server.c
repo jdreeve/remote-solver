@@ -2,6 +2,7 @@
 #include "server.h"
 #include "utils.h"
 
+
 server_resources* server_resources_create(){
 	server_resources* myself = (server_resources*)Malloc(sizeof(server_resources));
 	if(NULL != myself){
@@ -91,7 +92,7 @@ void serve(server_resources* server_resources){
 		read_message(&rio_client, buf, MAXLINE);
 		printf("Received model md5 %s", buf);
 		strncpy(this_model_md5, buf, 32);
-		node* node=NULL;// = cache_search(server_resources->config->cache, this_model_md5);
+		node* node = cache_search(server_resources->config->cache, this_model_md5);
 		if(NULL==node){
 			printf("md5 %s not cached\n", this_model_md5);
 			send_message(server_resources->connfd, "NOTCACHED\n");
@@ -100,16 +101,16 @@ void serve(server_resources* server_resources){
 			printf("Downloading model pickle from client\n");
 			size_t payload_size;
 			size_t response_bytes = 0;
-			printf("TRES\n");
+			
 			read_message(&rio_client, buf, MAXLINE);
-			printf("QUATORZ\n");
+			
 			payload_size = atoi(buf);
 			printf("Payload size set to %ld\n", payload_size);
 			strcpy(payload, "");
 			while((response_bytes < payload_size)){
-				printf("UNO\n");
+				
 				read_message(&rio_client, buf, MAXLINE);
-				printf("DOS\n");
+				
 				size_t bufsize = strlen(buf);
 				response_bytes+=bufsize;
 				if(response_bytes<MAX_OBJECT_SIZE){
@@ -122,12 +123,12 @@ void serve(server_resources* server_resources){
 			pthread_mutex_lock(server_resources->file_mutex);
 			write_file(server_resources->config->cache_path, this_model_md5, payload, payload_size, 1);
 			pthread_mutex_unlock(server_resources->file_mutex);
-
+			printf("XXXXXXX:%s,yyyyyy:%s", server_resources->config->cache_path, this_model_md5);
 			fork_exec_gillespy2(server_resources->config->cache_path, this_model_md5);
-			//payload = get_data_from_file(server_resources->config->cache_path, payload, this_model_md5, 0);
-			//pthread_mutex_lock(server_resources->cache_mutex);
-			//cache_add(server_resources->config->cache, payload, this_model_md5, sizeof(payload);
-			//pthread_mutex_unlock(server_resources->cache_mutex);
+			get_data_from_file(server_resources->config->cache_path, payload, this_model_md5, 0);
+			pthread_mutex_lock(server_resources->cache_mutex);
+			cache_add(server_resources->config->cache, payload, this_model_md5, sizeof(payload));
+			pthread_mutex_unlock(server_resources->cache_mutex);
 		}
 		else{
 			printf("md5 %s found in cache\n", this_model_md5);
@@ -166,6 +167,13 @@ void serve(server_resources* server_resources){
 void fork_exec_gillespy2(char* cache_path, char* model_md5){
 	printf("Fork-exec to gillespy2 goes here\n");
 	fflush(stdout);
+	// if (fork() == 0){
+	// 	int ret = execl("/usr/bin/python3", "python3", "./python/test_model.py", (char*)0);
+	// 	printf("%d\n", ret );
+	// }else{
+	// 	wait(0);
+	// }
+	
 	//fork
 	//child exec gillespy2 script to run model md5
 	//waitpid
